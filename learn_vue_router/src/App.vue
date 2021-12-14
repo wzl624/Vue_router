@@ -1,21 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div id="nav">
+      <!-- <router-link to="/home">Home</router-link> |
+      <router-link to="/user/3">User</router-link> -->
+      <router-link :to="{name:'User',params:{id:2}}">User</router-link>
+      <div id="nav"><router-link to="/foo/1">Foo</router-link></div>
+      <button @click="handleToUser">to user</button>
+    </div>
+    <router-view></router-view>
+    <router-view name="one"></router-view>
+    <router-view name="two"></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
+  name:"App",
+  comments:{},
+  methods:{
+    handleToUser(){
+      //push
+      this.$router.push({
+        name:"User",
+        params:{
+          id:3,
+        }
+      });
+      //this.$router.push("user/3");
+      //replace
+      //this.$router.replace("/user/3");
+    }
+  }
+}
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -23,6 +40,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
